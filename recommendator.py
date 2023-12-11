@@ -17,9 +17,7 @@ def recommendation(song_info, n_songs = 1):
         
         recommendations.append(s)
 
-    print("Aqui tiene una lista de canciones que pueden gustarle:")
-    for song in recommendations:
-        print(f"- {song[0]} (https://open.spotify.com/intl-es/track/{song[1]})")
+    return recommendations
 
 def get_song_data(id):
     data = spotify.audio_features(id)
@@ -42,6 +40,9 @@ if __name__ == '__main__':
         song_id = get_song_id(link)
         info = get_song_data(song_id)
         n = int(input("Ingrese el numero de recomendaciones deseado: "))
-        recommendation(info, n)
+        r = recommendation(info, n)
+        print("Aqui tiene una lista de canciones que pueden gustarle:")
+        for song in r:
+            print(f"- {song[0]} (https://open.spotify.com/intl-es/track/{song[1]})")
         print()
         print()

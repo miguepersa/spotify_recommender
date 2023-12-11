@@ -1,5 +1,6 @@
 import pandas as pd
 from random import random, uniform
+from math import sqrt
 
 class Kmeans(object):
     def __init__(self, data: pd.DataFrame, k: int, normalize = False):
@@ -91,6 +92,9 @@ class Kmeans(object):
 
         return suma
     
+    def euclidean_norm(self, v1, v2) -> float:
+        return sqrt(self.squared_euclidean_norm(v1,v2))
+
     def sum_vectors(self, v1, v2):
         if (len(v1) != len(v2)):
             print("Error de dimensiones de los vectores")

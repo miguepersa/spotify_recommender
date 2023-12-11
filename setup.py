@@ -18,7 +18,7 @@ for c in centroides_str:
             f_cent.append(float(k))
 
         except:
-            f_cent.append(float(k[-1]))
+            f_cent.append(float(k[:-1]))
     
     centroides.append(f_cent)
 
