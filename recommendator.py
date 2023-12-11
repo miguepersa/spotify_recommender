@@ -1,6 +1,5 @@
 from setup import km, final_df, ind
 from spotify_login import spotify
-from random import randint
 
 def recommendation(song_info, n_songs = 1):
     cluster = km.get_cluster(song_info)
@@ -26,17 +25,22 @@ def get_song_id(link):
 if __name__ == '__main__':
     print("Bienvenido a Spotify-reccomendator.\n")
     while True:
-        link = input("Ingrese el enlace de su cancion favorita \n(el enlace se obtiene presionando \"Compartir -> Copiar enlace de la cancion\" en Spotify): ")
+        try:
+            link = input("Ingrese el enlace de su cancion favorita \n(el enlace se obtiene presionando \"Compartir -> Copiar enlace de la cancion\" en Spotify): ")
 
-        if link.lower() == "salir":
-            break
+            if link.lower() == "salir":
+                break
 
-        song_id = get_song_id(link)
-        info = get_song_data(song_id)
-        n = int(input("Ingrese el numero de recomendaciones deseado: "))
-        r = recommendation(info, n)
-        print("Aqui tiene una lista de canciones que pueden gustarle:")
-        for song in r:
-            print(f"- {song[0]} (https://open.spotify.com/intl-es/track/{song[1]})")
-        print()
-        print()
+            song_id = get_song_id(link)
+            info = get_song_data(song_id)
+            n = int(input("Ingrese el numero de recomendaciones deseado: "))
+            r = recommendation(info, n)
+            print("Aqui tiene una lista de canciones que pueden gustarle:")
+            for song in r:
+                print(f"- {song[0]} (https://open.spotify.com/intl-es/track/{song[1]})")
+            print()
+            print()
+
+        except Exception as e:
+            print("error: {e}")
+            continue
