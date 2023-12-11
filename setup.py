@@ -3,7 +3,7 @@ from K_means import Kmeans
 
 centroides_str = None
 
-with open("centroides.txt", 'r') as f:
+with open("centroides2.txt", 'r') as f:
     centroides_str = f.readline()
 
 centroides_str = centroides_str[1:-1].split('], ')
@@ -22,10 +22,10 @@ for c in centroides_str:
     
     centroides.append(f_cent)
 
-full_df = pd.read_csv('genres_v2.csv', low_memory=False)
+full_df = pd.read_csv('music_data_popular.csv', low_memory=False)
 columns = full_df.columns
 
-ind = ['danceability','energy','loudness','speechiness','acousticness','instrumentalness','liveness','valence','tempo']
+ind = ["acousticness","danceability","energy","instrumentalness","key","liveness","loudness","speechiness","tempo","valence"]
 dep = [c for c in columns if c not in ind]
 df = full_df[ind]
 
