@@ -5,19 +5,13 @@ from random import randint
 def recommendation(song_info, n_songs = 1):
     cluster = km.get_cluster(song_info)
     df = final_df[final_df['cluster'] == cluster]
-    
-    songs = [(song['song_name'], song['id']) for _,song in df.iterrows()]
-    
+    df_rows = sorted([row for _,row in df.iterrows()], key= lambda x: km.squared_euclidean_norm(list(x[ind]), song_info))
+    songs = [(song['song_name'], song['id']) for song in df_rows]
     recommendations = []
-    while len(recommendations) != n_songs:
-        s = songs[randint(0,len(songs)-1)]
-
-        if isinstance(s[0], float) or s in recommendations:
-            continue
-        
-        recommendations.append(s)
-
-    return recommendations
+    for s in songs:
+        if s not in recommendations and not isinstance(s[0], float):
+            recommendations.append(s)
+    return songs[0:n_songs]
 
 def get_song_data(id):
     data = spotify.audio_features(id)

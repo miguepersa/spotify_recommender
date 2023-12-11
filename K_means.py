@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from random import random, uniform
 from math import sqrt
 
@@ -112,3 +113,13 @@ class Kmeans(object):
             mn = self.X[column].min()
             mx = self.X[column].max()
             self.X[column] = self.X[column].map(lambda x: (x - mn) / (mx - mn))
+
+    def inertia(self):
+        inertia = 0
+        for i in range(self.k):
+            elementos_cluster = self.X[self.X['cluster'] == i]
+            elementos_cluster = elementos_cluster[self.columns]
+            for _, row in elementos_cluster.iterrows():
+                inertia += self.squared_euclidean_norm(self.centroides[i], list(row))
+
+        return inertia
